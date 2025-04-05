@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenLife | Eco-Friendly Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #4CAF50;
+            --dark: #333;
+            --light: #f9f9f9;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: #fff;
+            color: var(--dark);
+        }
+        
+        /* Header */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .cart-icon {
+            position: relative;
+        }
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3') center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        .hero-content {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        /* Products Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .product-price {
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .add-to-cart {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        /* Cart Sidebar */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: none;
+        }
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100%;
+            background: white;
+            padding: 1.5rem;
+            overflow-y: auto;
+            z-index: 101;
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .cart-item {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        .cart-item-details {
+            flex: 1;
+        }
+        .remove-item {
+            color: red;
+            cursor: pointer;
+        }
+        .cart-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        .checkout-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .cart-sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">GreenLife</div>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Eco-Friendly Products</h1>
+            <p>Shop sustainable, live responsibly</p>
+        </div>
+    </section>
+    
+    <!-- Product Grid -->
+    <section class="products">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71O+j6i2XkL._AC_UF1000,1000_QL80_.jpg" alt="Bamboo Toothbrush" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Bamboo Toothbrush</h3>
+                <p class="product-price">$5.99</p>
+                <button class="add-to-cart" data-id="1" data-name="Bamboo Toothbrush" data-price="5.99" data-img="https://m.media-amazon.com/images/I/71O+j6i2XkL._AC_UF1000,1000_QL80_.jpg">Add to Cart</button>
+            </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71O0nb+Ch1L._AC_UF1000,1000_QL80_.jpg" alt="Reusable Shopping Bag" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Reusable Shopping Bag</h3>
+                <p class="product-price">$7.99</p>
+                <button class="add-to-cart" data-id="2" data-name="Reusable Shopping Bag" data-price="7.99" data-img="https://m.media-amazon.com/images/I/71O0nb+Ch1L._AC_UF1000,1000_QL80_.jpg">Add to Cart</button>
+            </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img src="https://m.media-amazon.com/images/I/71Q4qUf0PmL._AC_UF1000,1000_QL80_.jpg" alt="Stainless Steel Straw" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">Stainless Steel Straw</h3>
+                <p class="product-price">$3.99</p>
+                <button class="add-to-cart" data-id="3" data-name="Stainless Steel Straw" data-price="3.99" data-img="https://m.media-amazon.com/images/I/71Q4qUf0PmL._AC_UF1000,1000_QL80_.jpg">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay"></div>
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-total">
+            Total: $<span class="total-amount">0.00</span>
+        </div>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const cartIcon = document.querySelector('.cart-icon');
+        const cartOverlay = document.querySelector('.cart-overlay');
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        const closeCart = document.querySelector('.close-cart');
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const totalAmount = document.querySelector('.total-amount');
+        const cartCount = document.querySelector('.cart-count');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        
+        // Cart Array
+        let cart = [];
+        
+        // Open Cart
+        cartIcon.addEventListener('click', () => {
+            cartOverlay.style.display = 'block';
+            cartSidebar.style.transform = 'translateX(0)';
+        });
+        
+        // Close Cart
+        closeCart.addEventListener('click', () => {
+            cartOverlay.style.display = 'none';
+            cartSidebar.style.transform = 'translateX(100%)';
+        });
+        
+        // Add to Cart
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                const name = btn.getAttribute('data-name');
+                const price = parseFloat(btn.getAttribute('data-price'));
+                const img = btn.getAttribute('data-img');
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ id, name, price, img, quantity: 1 });
+                }
+                
+                updateCart();
+            });
+        });
+        
+        // Update Cart
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>$${item.price} x ${item.quantity}</p>
+                        <p class="remove-item" data-id="${item.id}">Remove</p>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Update total
+            totalAmount.textContent = total.toFixed(2);
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.getAttribute('data-id');
+                    cart = cart.filter(item => item.id !== id);
+                    updateCart();
+                });
+            });
+        }
+        
+        // Checkout
+        document.querySelector('.checkout-btn').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+            } else {
+                alert(`Redirecting to checkout... Total: $${totalAmount.textContent}`);
+                // In a real app, integrate Stripe/PayPal here
+                cart = [];
+                updateCart();
+                cartOverlay.style.display = 'none';
+                cartSidebar.style.transform = 'translateX(100%)';
+            }
+        });
+    </script>
+</body>
+</html>
